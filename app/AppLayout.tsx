@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import "./styles/App.css";
+import "../styles/App.css";
 // import "styles/App.css";
 // import "styles/Contact.css";
 // import "styles/MiniCalendar.css";
