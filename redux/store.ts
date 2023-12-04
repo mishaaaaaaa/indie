@@ -4,14 +4,14 @@ import { useDispatch } from "react-redux";
 import users from "./features/usersSlice";
 import friends from "./features/friendsSlice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { pokemonApi } from "@/app/api/pokemon/pokemonApi";
+
 export const store = configureStore({
   reducer: {
     users,
     friends,
-    [pokemonApi.reducerPath]: pokemonApi.reducer,
+    // [pokemonApi.reducerPath]: pokemonApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pokemonApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -14,11 +14,10 @@ export const fetchUsers = (test: string) => async (dispatch: AppDispatch) => {
 };
 
 export const fetchUsersThunk = createAsyncThunk("user/fetchAll", async (param: string, thunkApi) => {
-  console.log(param);
   try {
     const respone = await axios.get<User[]>("https://jsonplaceholder.typicode.com/users");
     return respone.data;
-  } catch (e) {
-    return thunkApi.rejectWithValue("Some error occured");
+  } catch (err) {
+    return thunkApi.rejectWithValue(`Error: ${err}`);
   }
 });

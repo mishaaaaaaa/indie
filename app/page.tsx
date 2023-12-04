@@ -1,6 +1,10 @@
-import { redirect } from "next/navigation";
-import Feed from "./feed/page";
+"use client";
 
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
 export default function App() {
-  redirect("/feed");
+  const session = useSession();
+  console.log(session);
+
+  session.data ? redirect("/feed") : redirect("/signin");
 }
