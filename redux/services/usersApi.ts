@@ -13,11 +13,11 @@ export const fetchUsers = (test: string) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const fetchUsersThunk = createAsyncThunk("user/fetchAll", async (param: string, thunkApi) => {
-  try {
-    const respone = await axios.get<User[]>("https://jsonplaceholder.typicode.com/users");
-    return respone.data;
-  } catch (err) {
-    return thunkApi.rejectWithValue(`Error: ${err}`);
-  }
-});
+// export const fetchUsersThunk = createAsyncThunk("user/fetchAll", async (param: string, thunkApi) => {
+//   try {
+//     const respone = await axios.get<User[]>("https://jsonplaceholder.typicode.com/users");
+//     return respone.data;
+//   } catch (err) {
+//     return thunkApi.rejectWithValue(`Error: ${err}`);
+//   }
+// });

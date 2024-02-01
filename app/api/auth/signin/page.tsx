@@ -1,3 +1,5 @@
+"use client";
+
 import GoogleButton from "./components/GoogleButton";
 import type { FormEventHandler } from "react";
 export default async function Signin() {
@@ -23,7 +25,7 @@ export default async function Signin() {
             <p className="text-sm mt-6">
               Don't have an account{" "}
               <a
-                href="javascript:void(0);"
+                // href="javascript:void(0);"
                 className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap"
               >
                 Register here
@@ -52,11 +54,11 @@ export default async function Signin() {
                     <path d="M0 512h512V0H0Z" data-original="#000000"></path>
                   </clipPath>
                 </defs>
-                <g clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
+                <g clipPath="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
                   <path
                     fill="none"
-                    stroke-miterlimit="10"
-                    stroke-width="40"
+                    strokeMiterlimit="10"
+                    strokeWidth="40"
                     d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
                     data-original="#000000"
                   ></path>

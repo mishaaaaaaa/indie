@@ -1,9 +1,13 @@
-"use client";
-
 import { redirect } from "next/navigation";
-import { useSession } from "next-auth/react";
+
 export default function App() {
-  const session = useSession();
+  // const session = use(getSession());
+  // const session = useSession();
+
+  // console.log("alskdjalsdjl");
+  // console.log(session);
+
+  redirect("/feed");
 
   //session.data ? redirect("/feed") : redirect("/signin");
 }

@@ -1,11 +1,13 @@
+"use client";
 import { User } from "@/app/models/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchUsersThunk } from "../services/usersApi";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 type InitialState = {
-  users: User[];
+  users: User[] | undefined;
   isLoading: boolean;
-  error: string;
+  error: string | undefined;
 };
 
 const initialState: InitialState = {
@@ -13,6 +15,8 @@ const initialState: InitialState = {
   isLoading: false,
   error: "",
 }; // or we can apply type by "as InitialState"
+
+// const axiosAuth = useAxiosAuth();
 
 export const user = createSlice({
   name: "users",
@@ -41,35 +45,42 @@ export const user = createSlice({
       state.isLoading = false;
     },
   },
-  extraReducers: {
-    [fetchUsersThunk.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchUsersThunk.fulfilled.type]: (state, action: PayloadAction<User[]>) => {
-      state.users = action.payload;
-      state.isLoading = false;
-    },
-    [fetchUsersThunk.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsersThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUsersThunk.fulfilled, (state, action) => {
+        state.users = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchUsersThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
+      });
   },
-  // ниже тот же код но с билдерами, он эквивалентный
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(fetchUsersThunk.pending, (state) => {
-  //       state.isLoading = true;
-  //     })
-  //     .addCase(fetchUsersThunk.fulfilled, (state, action) => {
-  //       state.users = action.payload;
-  //       state.isLoading = false;
-  //     })
-  //     .addCase(fetchUsersThunk.rejected, (state, action) => {
-  //       state.error = action.error.message;
-  //       state.isLoading = false;
-  //     });
-  // },
 });
 
 export const { manipulateUser, usersLoading, usersSuccess, usersFail } = user.actions;
 export default user.reducer;
+
+export type asyncHandlerParams = {
+  method: "GET" | "POST" | "DEL" | "UPD";
+  endpoint: string;
+  body?: any;
+};
+
+export const fetchUsersThunk = createAsyncThunk("user/fetchAll", async (param: any, thunkApi) => {
+  try {
+    const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+    // \asyncHandler({
+    //   method: "GET",
+    //   endpoint: "https://jsonplaceholder.typicode.com/users",
+    // });
+    console.log(response);
+    return response.data;
+  } catch (err) {
+    return thunkApi.rejectWithValue(`Error: ${err}`);
+  }
+});

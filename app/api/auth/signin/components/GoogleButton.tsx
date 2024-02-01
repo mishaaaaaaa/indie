@@ -11,7 +11,7 @@ const GoogleButton = () => {
     <button
       type="button"
       className="border-none outline-none"
-      onClick={() => signIn("google", { callbackUrl })}
+      onClick={() => signIn("google", { callbackUrl: "/feed" })}
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="30px" className="inline" viewBox="0 0 512 512">
         <path
