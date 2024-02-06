@@ -1,13 +1,13 @@
+// createAxiosInstance.js
+import { AxiosResponse } from "axios";
 import axios from "axios";
 import Cookies from "js-cookie";
-
-const BASE_URL = "http://localhost:8000";
 
 // Функция для получения access token из куки
 const getAccessToken = () => Cookies.get("access_token");
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -16,12 +16,21 @@ const axiosInstance = axios.create({
 // Перехватываем запросы и добавляем access token к заголовкам
 axiosInstance.interceptors.request.use((config) => {
   const accessToken = getAccessToken();
-  console.log(axiosInstance.interceptors.request.use);
-  console.log(accessToken);
   if (accessToken) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
   return config;
 });
 
-export default axiosInstance;
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  }
+);
+
+export { axiosInstance as axios };

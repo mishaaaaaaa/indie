@@ -1,8 +1,10 @@
 import type { AuthOptions, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
+import { NextAuthOptions, getServerSession } from "next-auth";
 
-export const authConfig: AuthOptions = {
+const authConfig: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -48,6 +50,7 @@ export const authConfig: AuthOptions = {
   },
   session: {
     strategy: "jwt", // <-- make sure to use jwt here
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
     async jwt({ token, user, account }) {
@@ -65,3 +68,14 @@ export const authConfig: AuthOptions = {
 
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+function auth( // <-- use this function to access the jwt from React components
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authConfig);
+}
+
+export { authConfig, auth };

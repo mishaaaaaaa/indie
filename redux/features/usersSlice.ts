@@ -2,7 +2,7 @@
 import { User } from "@/app/models/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axios } from "@/lib/axios";
 
 type InitialState = {
   users: User[] | undefined;
@@ -62,25 +62,13 @@ export const user = createSlice({
   },
 });
 
-export const { manipulateUser, usersLoading, usersSuccess, usersFail } = user.actions;
-export default user.reducer;
-
-export type asyncHandlerParams = {
-  method: "GET" | "POST" | "DEL" | "UPD";
-  endpoint: string;
-  body?: any;
-};
-
 export const fetchUsersThunk = createAsyncThunk("user/fetchAll", async (param: any, thunkApi) => {
   try {
     const response = await axios.get("https://jsonplaceholder.typicode.com/users");
-    // \asyncHandler({
-    //   method: "GET",
-    //   endpoint: "https://jsonplaceholder.typicode.com/users",
-    // });
-    console.log(response);
     return response.data;
   } catch (err) {
     return thunkApi.rejectWithValue(`Error: ${err}`);
   }
 });
+
+export default user.reducer;

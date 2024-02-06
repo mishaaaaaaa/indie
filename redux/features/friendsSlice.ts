@@ -14,7 +14,7 @@ const initialState = {
   } as FriendsState,
 } as InitialState;
 
-export const user = createSlice({
+export const friends = createSlice({
   name: "friends",
   initialState,
   reducers: {
@@ -24,5 +24,5 @@ export const user = createSlice({
   },
 });
 
-export const { manipulateFriends } = user.actions;
-export default user.reducer;
+export const { manipulateFriends } = friends.actions;
+export default friends.reducer;
