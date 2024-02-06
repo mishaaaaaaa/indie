@@ -1,8 +1,8 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import users from "./features/usersSlice";
-import friends from "./features/friendsSlice";
+import users from "./slices/users";
+import friends from "./slices/friends";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({

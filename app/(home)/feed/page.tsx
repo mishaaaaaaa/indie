@@ -1,22 +1,17 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { signIn, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useEffect } from "react";
-import { fetchUsersThunk } from "@/redux/features/usersSlice";
+import { fetchUsersThunk } from "@/redux/slices/users";
+
+//example of authed remoute API client call with set to redux store
 const Feed = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector((store) => store.users);
 
-  console.log(users);
-
   useEffect(() => {
     dispatch(fetchUsersThunk(""));
-    //  dispatch(fetchUsersThunk(""));
-    // axiosAuth.get("https://jsonplaceholder.typicode.com/todos/1").then((resp) => console.log(resp));
-    //AuthGetApi("https://jsonplaceholder.typicode.com/todos/1").then((resp) => console.log(resp));
-    // console.log(fetchUsersThunk);
   }, []);
-  // console.log(users);
 
   const handleLogOut = () => {
     signOut();

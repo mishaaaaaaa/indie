@@ -1,8 +1,8 @@
-import type { AuthOptions, User } from "next-auth";
+import type { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
-import { NextAuthOptions, getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 
 const authConfig: AuthOptions = {
   providers: [

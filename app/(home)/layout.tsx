@@ -1,10 +1,6 @@
 import React, { ReactNode } from "react";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
-  //general  layout for app
-
-  //   console.log(children);
-
   return (
     <div className="m-0 p-0 min-h-screen flex flex-row test">
       <div className="basis-1/5">here will be sidebar</div>

@@ -1,8 +1,8 @@
 "use client";
-import { User } from "@/app/models/user";
+import { User } from "@/models/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axios } from "@/lib/axios";
+import { axios } from "@/lib/clientFetch";
 
 type InitialState = {
   users: User[] | undefined;
